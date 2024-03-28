@@ -25,3 +25,20 @@ jobs:
         run: |
           docker build . -t ghcr.io/houbou98-19/mydemoapp:latest
           docker push ghcr.io/houbou98-19/mydemoapp:latest 
+
+  deploy_to_azure_container_apps:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name dockerdemoapp \
+            --resource-group DockerDemoRG \
+            --image ghcr.io/houbou98-19/mydemoapp:latest          

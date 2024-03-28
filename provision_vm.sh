@@ -3,9 +3,9 @@
 resource_group=DockerDemoRG
 location=northeurope
 env_name=DockerDemoEnv
-app_name=mydemoapp
+app_name=dockerdemoapp
 app_port=8080
-image=ghcr.io/houbou98/mydemoapp
+image=ghcr.io/houbou98-19/mydemoapp
 
 az group create --location $location --name $resource_group
 
